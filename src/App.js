@@ -8,7 +8,7 @@ import AssignedChores from './components/chores/AssignedChores';
 import RewardManagement from './components/rewards/RewardManagement';
 import AddReward from './components/rewards/AddReward';
 import EditReward from './components/rewards/EditReward';
-import ParentDashboard from './components/chores/ParentDashboard';
+import ParentDashboard from './components/parentDashboard/ParentDashboard';
 
 // import AssignedChores from './AssignedChores';
 
