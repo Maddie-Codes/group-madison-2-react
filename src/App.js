@@ -8,7 +8,7 @@ import AssignedChores from './components/chores/AssignedChores';
 import RewardManagement from './components/rewards/RewardManagement';
 import AddReward from './components/rewards/AddReward';
 import EditReward from './components/rewards/EditReward';
-
+import ParentDashboard from './components/chores/ParentDashboard';
 
 // import AssignedChores from './AssignedChores';
 
@@ -22,6 +22,7 @@ function App() {
       <Route path="/allrewards" element={<RewardManagement />} />
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
+      <Route path="/api/parent-dashboard" element={<ParentDashboard />} />
            </Routes>
 
 
