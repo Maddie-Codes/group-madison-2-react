@@ -14,7 +14,7 @@ import RewardManagement from './components/rewards/RewardManagement';
 import AddReward from './components/rewards/AddReward';
 import EditReward from './components/rewards/EditReward';
 import ApiCall from './components/api/ApiCall';
-
+import ChildLogin from './components/ChildLogin';
 function App() {
   return (
     <Routes>
@@ -30,6 +30,7 @@ function App() {
       <Route path="/allrewards" element={<RewardManagement />} />
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
+      <Route path='/api/child' element={<ChildLogin />} />
     </Routes>
   );
 }

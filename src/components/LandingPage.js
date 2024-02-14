@@ -22,7 +22,7 @@ export default class LandingPage extends React.Component {
                             <a href='./api/parentLogin'>
                                 <button class="btn btn-primary border-0 landingPage-btn" type="button">PARENT LOGIN</button>
                             </a>
-                            <a href='./api/childLogin'>
+                            <a href='./api/child'>
                                 <button class="btn btn-primary border-0 landingPage-btn" type="button">CHILD LOGIN</button>
                             </a>
                         </div>
