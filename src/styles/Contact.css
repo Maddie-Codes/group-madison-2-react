@@ -1,0 +1,24 @@
+.contact-btn {
+    color: #3D5656 !important;
+    display: flex;
+    align-items: center;
+}
+
+.contact-btn:hover {
+    color: #68B984 !important;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.footer-p {
+    padding-top: 14px;
+    padding-right: 40px;
+}
+
+.contact-form {
+    border: none;
+}

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import '../styles/LandingPage.css'
+import Contact from './Contact';
 
 export default class LandingPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             componentToShow: "landingPage"
         };
 
@@ -12,7 +13,7 @@ export default class LandingPage extends React.Component {
     render() {
         return (
             <div className='landingPage-body'>
-                <div>
+                <body className='main'>
                     <img src={require('../images/TC-logo.png')} alt="Task Crusher Logo" className='landingPage-image' />
                     <div className="bd-content ps-lg-4 d-flex flex-column flex-lg-row align-items-center justify-content-md-center gap-3 mb-4">
                         <div class="d-grid gap-2 d-md-block">
@@ -27,7 +28,10 @@ export default class LandingPage extends React.Component {
                             </a>
                         </div>
                     </div>
-                </div>
+                </body>
+            <footer>
+                <Contact />
+            </footer>
             </div>
         )
     }

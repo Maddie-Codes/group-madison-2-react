@@ -7,7 +7,7 @@ import UpdateChore from './components/chores/UpdateChore';
 import ChoresList from './components/chores/ChoresList';
 import LandingPage from './components/LandingPage';
 import Register from './components/Register';
-import ParentLogin from './components/ParentLogin';
+import ParentLogin from './components/parentLogin'
 import ParentDashboard from './components/ParentDashboard';
 import AssignedChores from './components/chores/AssignedChores';
 import RewardManagement from './components/rewards/RewardManagement';
@@ -16,6 +16,7 @@ import EditReward from './components/rewards/EditReward';
 import ApiCall from './components/api/ApiCall';
 import KidRegister from './components/KidRegister';
 import KidLogin from './components/KidLogin';
+import Contact from './components/Contact';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Route path="/allrewards" element={<RewardManagement />} />
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
+      <Route path='/api/contact' element={<Contact />} />
     </Routes>
   );
 }
