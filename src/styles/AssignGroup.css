@@ -1,0 +1,65 @@
+html {
+    background-color: #ecf8f9;
+  }
+  
+  img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  
+  .button-container {
+    display: block;
+    align-items: flex-end;
+    gap: 4px;
+  
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  form {
+    margin: auto;
+    text-align: left;
+    border: 3px solid green;
+    padding: 10px;
+  }
+  
+  label {
+    display: block;
+    width: 150px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .label-value {
+    display: block;
+    width: 150px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  input[type="text"]{
+    width: 30%;
+    height: 20px;
+  }
+  .kidId div {
+    margin-right: 10px; 
+  }
+  
+  
+  .button,
+  button[type="submit"] {
+    background-color: #3D5656;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+    border-radius: 10px;
+    width: 60px;
+    font-size: 12px;
+  }  
