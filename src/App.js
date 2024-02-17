@@ -32,7 +32,7 @@ function App() {
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
       <Route path="/api/groupassign" element={<AssignGroup />} />  
-      <Route path="/AssignGroupChore" element={<AssignGroupChore />} />          
+      <Route path="/api/assignGroupChore" element={<AssignGroupChore />} />          
     </Routes>
   );
 }

@@ -3,10 +3,11 @@ import DatePicker from 'react-datepicker';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/AssignGroup.css';
 import { useNavigate } from 'react-router-dom';
+import isEqual from 'react-fast-compare';
 const username = "AbbyBarber";
 
 
-const AssignGroupChore  = () => {
+const AssignGroupChore = () => {
     // State to store dropdown values
     // For kids dropdown
     const [kidDropValue, setKidDropValue] = useState('');
@@ -17,8 +18,9 @@ const AssignGroupChore  = () => {
     //State for dynamic group
     const [lengthChoreGroup, setLengthChoreGroup] = useState({});
     const [selectedKidId, setSelectedKidId] = useState('');
-    const[kidDropValueId,setKidDropValueId]=useState('');
-
+    //State for max date,data
+    const [maxDueData, setMaxDueData] = useState({});
+    const [maxDueDate, setMaxDueDate] = useState({});
     // Calendar Due date 
     const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
         <button type="button" onClick={onClick} ref={ref}>
@@ -26,7 +28,7 @@ const AssignGroupChore  = () => {
         </button>
     ));
 
-    //Kid dropdown
+    //Kid for whom we need to assign the chore Selection dropdown
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
@@ -38,7 +40,54 @@ const AssignGroupChore  = () => {
             .catch(error => console.error('Error fetching kids:', error));
     }, []);
 
+    //To get the data of all kids for that parent id
+    //This we will use for getting max date
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
+            .then(response => response.json())
+            .then(kidsData => {
+                const promises = kidsData.map(kid => {
+                    return fetch(`http://localhost:8080/api/groupassign/allchores?kidId=${kid.kidId}`)
+                        .then(response => response.json())
+                        .then(choresData => ({
+                            //  setMaxDueData(data);
+                            kidId: kid.kidId,
+                            chores: choresData
+                        }));
+                });
+                Promise.all(promises)
+                    .then(kidsChores => {
+                        const kidChoresMap = {};
+                        kidsChores.forEach(kidChore => {
+                            kidChoresMap[kidChore.kidId] = kidChore.chores;
+                        });
+                        //This is the data i want to take to get the max date.
+                        setMaxDueData(kidChoresMap);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching chores:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error fetching kids data:', error);
+            });
+    }, []);
 
+    //To get the max_date for the parentid
+    useEffect(() => {
+        const allParentData = Object.values(maxDueData).flat();
+
+        if (allParentData.length > 0) {
+            const maxDate = new Date(Math.max(...allParentData.map(chore => new Date(chore.dueDate))));
+            setMaxDueDate(maxDate.toISOString());
+            console.log("maxDate" + maxDate);
+            console.log("maxDueDate" + maxDueDate);
+        }
+    }, [maxDueData, maxDueDate]);
+
+    //From the parent get the kid id 
+    //The second fetches the Chores data.
+    //The third is used for group by kid. 
     useEffect(() => {
         fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
             .then(response => response.json())
@@ -51,12 +100,15 @@ const AssignGroupChore  = () => {
                             chores: choresData
                         }));
                 });
-
                 Promise.all(promises)
                     .then(kidsChores => {
                         const kidChoresMap = {};
                         kidsChores.forEach(kidChore => {
                             kidChoresMap[kidChore.kidId] = kidChore.chores;
+                            //  console.log(JSON.stringify(kidChore.chores));
+                            // const equalDate=kidChore.chores.filter(choresins=>choresins.dueDate===maxDueDate);
+                            // kidChoresMap[kidChore] = equalDate;
+                            //  console.log(equalDate);
                         });
                         setKidGroupChores(kidChoresMap);
                     })
@@ -67,11 +119,13 @@ const AssignGroupChore  = () => {
             .catch(error => {
                 console.error('Error fetching kids:', error);
             });
-    }, []);
+    }, [maxDueDate]);
 
     const handleDateChange = (date) => {
         setDueDate(date);
     };
+
+    //////////
 
     ///////Chore Group Dynamic Name Generation/////////////////////
 
@@ -82,11 +136,11 @@ const AssignGroupChore  = () => {
             .filter(([_, chores]) => chores && chores.length !== 0)
             .forEach(([kidId, chores], index) => {
                 // Generate group name dynamically
-                fetchedLengthChoreGroup[kidId] = `Group ${index + 1}`;
+                fetchedLengthChoreGroup[kidId] = `Chore Group ${index + 1}`;
             });
         // Set lengthChoreGroup state
         setLengthChoreGroup(fetchedLengthChoreGroup);
-    }, [kidGroupChores]); // Trigger effect whenever kidGroupChores changes
+    }, [kidGroupChores]);
 
     const handleKidSelect = (e) => {
         setSelectedKidId(e.target.value);
@@ -98,34 +152,36 @@ const AssignGroupChore  = () => {
 
     const handleSubmitGroup = (e) => {
         const formattedDueDate = dueDate.toISOString().split('T')[0];
-      //  console.log("kidDropValueId"+kidDropValueId);
-        console.log("selectedKidId"+selectedKidId);
-        console.log("formattedDueDate"+formattedDueDate);   
-        console.log("kidDropValue"+kidDropValue); 
-        handleAssignGroupChore(selectedKidId, formattedDueDate, kidDropValue); 
+        //  console.log("kidDropValueId"+kidDropValueId);
+        console.log("selectedKidId" + selectedKidId);
+        console.log("formattedDueDate" + formattedDueDate);
+        console.log("kidDropValue" + kidDropValue);
+        handleAssignGroupChore(selectedKidId, formattedDueDate, kidDropValue);
     };
 
-const navigate = useNavigate();
-const handleAssignGroupChore = async (selectedKidId, dueDate, kidDropValue,) => {
-    console.log("selectedKidId" + selectedKidId);
-    console.log("kidDropValue" + kidDropValue);
-    //const formattedDueDate = dueDate.toISOString().split('T')[0];
-    const response = await fetch(`http://localhost:8080/insert?selectedKidId=${selectedKidId}&dueDate=${dueDate}&setKidDropValue=${kidDropValue}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const navigate = useNavigate();
+    //////Note:selectedKidId Contains the kid_id whose chores we have made as an group.
+    //////Note:kidDropValue Contains the kid_id for whom we are making an entry in the chores.
+    const handleAssignGroupChore = async (selectedKidId, dueDate, kidDropValue,) => {
+        console.log("selectedKidId" + selectedKidId);
+        console.log("kidDropValue" + kidDropValue);
+        //const formattedDueDate = dueDate.toISOString().split('T')[0];
+        const response = await fetch(`http://localhost:8080/insert?selectedKidId=${selectedKidId}&dueDate=${dueDate}&setKidDropValue=${kidDropValue}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-    if (response.ok) {
-      console.log('Group Chore assigned successfully');
-      navigate('/AssignGroupChore');
-    } else {
-      console.error('Failed to assign chore');
-    }
-  };
+        if (response.ok) {
+            console.log('Group Chore assigned successfully');
+            navigate('/api/assignGroupChore');
+        } else {
+            console.error('Failed to assign chore');
+        }
+    };
     return (
-           <div>
+        <div>
             <h2>List of all the Chore Group</h2>
 
             <div>
@@ -178,7 +234,7 @@ const handleAssignGroupChore = async (selectedKidId, dueDate, kidDropValue,) => 
                 )}
             </div>
             <button onClick={handleSubmitGroup}>Assign</button>
-         
+
         </div>
 
     );
