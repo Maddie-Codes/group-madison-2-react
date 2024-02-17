@@ -7,14 +7,18 @@ const Contact = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
+        id: "",
         name: "",
+        email: "",
         contactStatus: "",
         message: ""
     });
 
     useEffect(() => {
         setFormData({
+            id: "",
             name: "",
+            email: "",
             contactStatus: "",
             message: ""
         });
@@ -26,15 +30,17 @@ const Contact = () => {
     };
 
     const onSubmit = (e) => {
-        e.preventDegfault();
-        request("POST", "/api/contact", formData)
-            .then((response) => {
+        e.preventDefault();
+        request("POST", formData)
+            .then(() => {
                 setFormData({
+                    id: "",
                     name: "",
+                    email: "",
                     contactStatus: "",
                     message: ""
                 });
-                navigate('/api')
+                // navigate('/api')
             })
             .catch((error) => {
                 console.error("Submission failed:", error)
@@ -44,11 +50,11 @@ const Contact = () => {
     return (
         <div className="footer">
             <p className="footer-p">&copy; 2024 Team Crushers</p>
-            <button type="button" class="btn contact-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn contact-btn" data-bs-toggle="modal" data-bs-target="#contactModal">
                 Contact Us
             </button>
 
-            <form class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onSubmit={onSubmit}>
+            <form action="" method="POST" class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onSubmit={onSubmit}>
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -57,10 +63,15 @@ const Contact = () => {
                         </div>
                         <div class="modal-body">
                             <div className="mb-3 form-outline mb-4">
-                                <label for="name" className="form-label ontact-form">Name</label>
+                                <label for="name" className="form-label contact-form">Name</label>
                                 <input type="text input-lg" className="form-control" placeholder="Name" onChange={onChangeHandler} />
                             </div>
                             <div className="mb-3 form-outline mb-4">
+                                <label for="email" className="form-label contact-form">Email</label>
+                                <input type="email" className="form-control" placeholder="email" onChange={onChangeHandler} />
+                            </div>
+                            <div className="mb-3 form-outline mb-4">
+                                <label for="status" className="form-label contact-form">Category`</label>
                                 <select class="form-select" aria-label="select status" onChange={onChangeHandler}>
                                     <option selected>Choose one of the following</option>
                                     <option value="1">Questions</option>
@@ -76,7 +87,7 @@ const Contact = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Submit</button>
+                            <button type="submit button" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
