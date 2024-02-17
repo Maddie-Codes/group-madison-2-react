@@ -16,7 +16,6 @@ const Contact = () => {
 
     useEffect(() => {
         setFormData({
-            id: "",
             name: "",
             email: "",
             contactStatus: "",
@@ -29,12 +28,11 @@ const Contact = () => {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const onSubmit = (e) => {
+    const onContactSubmit = (e) => {
         e.preventDefault();
-        request("POST", formData)
-            .then(() => {
+        request("POST", '/api/contact', formData)
+            .then((response) => {
                 setFormData({
-                    id: "",
                     name: "",
                     email: "",
                     contactStatus: "",
@@ -54,7 +52,7 @@ const Contact = () => {
                 Contact Us
             </button>
 
-            <form action="" method="POST" class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onSubmit={onSubmit}>
+            <form action="" method="POST" class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onSubmit={onContactSubmit}>
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
