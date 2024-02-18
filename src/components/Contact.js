@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { request } from "../axios_helper";
+import { requestAnon } from "../axios_helper";
 import '../styles/Contact.css';
 
 const Contact = () => {
-    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         id: "",
@@ -24,13 +23,15 @@ const Contact = () => {
     }, [])
 
     const onChangeHandler = (event) => {
+      
         const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     const onContactSubmit = (e) => {
+      
         e.preventDefault();
-        request("POST", '/api/contact', formData)
+        requestAnon("POST", '/api/contact', formData)
             .then((response) => {
                 setFormData({
                     name: "",
@@ -62,15 +63,15 @@ const Contact = () => {
                         <div class="modal-body">
                             <div className="mb-3 form-outline mb-4">
                                 <label for="name" className="form-label contact-form">Name</label>
-                                <input type="text input-lg" className="form-control" placeholder="Name" onChange={onChangeHandler} />
+                                <input type="text input-lg" name="name"className="form-control" placeholder="Name" onChange={onChangeHandler} />
                             </div>
                             <div className="mb-3 form-outline mb-4">
                                 <label for="email" className="form-label contact-form">Email</label>
-                                <input type="email" className="form-control" placeholder="email" onChange={onChangeHandler} />
+                                <input type="email" name="email" className="form-control" placeholder="email" onChange={onChangeHandler} />
                             </div>
                             <div className="mb-3 form-outline mb-4">
                                 <label for="status" className="form-label contact-form">Category`</label>
-                                <select class="form-select" aria-label="select status" onChange={onChangeHandler}>
+                                <select class="form-select" name="contactStatus" aria-label="select status" onChange={onChangeHandler}>
                                     <option selected>Choose one of the following</option>
                                     <option value="1">Questions</option>
                                     <option value="2">Technical</option>
@@ -80,7 +81,7 @@ const Contact = () => {
                             </div>
                             <div className="mb-3 form-outline mb-4">
                                 <label for="textarea" className="form-label">Message</label>
-                                <textarea className="form-control" rows={4} onChange={onChangeHandler}></textarea>
+                                <textarea className="form-control" name="message" rows={4} onChange={onChangeHandler}></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">

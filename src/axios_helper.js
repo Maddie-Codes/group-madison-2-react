@@ -29,10 +29,11 @@ export const setAuthToken = (token) => {
 
         const authToken = getAuthToken();
         if (authToken) {
-           headers = { "Authorization": `Bearer ${authToken}` };
+           headers = { "Authorization":  `${authToken}` };
         }
 
         return axios({
+
             method: method,
             headers: headers,
             url: url,
@@ -41,4 +42,15 @@ export const setAuthToken = (token) => {
         });
     };
 
+
+    export const requestAnon = async (method, url, data) => {
+
+
+        return axios({
+            method: method,
+            url: url,
+            data: data,
+            credentials: 'include'  // Include this line if dealing with cross-origin requests and you want to send credentials.
+        });
+    };
 
