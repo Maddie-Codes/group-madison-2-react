@@ -14,6 +14,7 @@ import RewardManagement from './components/rewards/RewardManagement';
 import AddReward from './components/rewards/AddReward';
 import EditReward from './components/rewards/EditReward';
 import AssignGroupChore from './components/chores/AssignGroupChore';
+import CommentApproveChore from './components/chores/CommentChore';
 function App() {
   return (
     <Routes>
@@ -29,6 +30,7 @@ function App() {
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
       <Route path="/api/assignGroupChore" element={<AssignGroupChore />} /> 
+      <Route path="/api/approve/comment" element={<CommentApproveChore />} /> 
     </Routes>
   );
 }

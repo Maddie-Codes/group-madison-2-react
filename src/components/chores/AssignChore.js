@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/ChoreStyles.css';
 import ApiCall from '../api/ApiCall.js'
-
+import ApiReward from '../api/ApiRewardsPointValue.js'
 // Calendar icon component
 const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
   <button type="button" onClick={onClick} ref={ref}>
@@ -20,6 +20,7 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
   const [selectedValueType, setSelectedValueType] = useState('points');
   const [selectedValue, setSelectedValue] = useState(1);
   const [kids, setKids] = useState([]);
+  const [rewardsStatus,setRewardsStatus]=useState(0);
 
   // Fetch the list of kids from the server when the component is mounted
   useEffect(() => {
@@ -47,6 +48,7 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
   // Handler function for changing the selected value (number input)
   const handleValueChange = (e) => {
     setSelectedValue(parseInt(e.target.value, 10));
+    setRewardsStatus(1);
   };
 
   // Handler function for form submission
@@ -54,8 +56,7 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
     e.preventDefault();
     await handleAssignChore(choreId, selectedKid, dueDate, selectedValueType, selectedValue);
   }
-
-
+ 
   return (
     <form onSubmit={handleSubmit}>
       {/* Dropdown for selecting a kid */}
@@ -109,6 +110,9 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
           min="1"
           max="100"
         />
+                {/* Api Rewards call added  */}        
+  {selectedValue !== null && selectedValue > 0 &&dueDate&&rewardsStatus==true&& <ApiReward dueDate={dueDate} points={selectedValue} />}
+
       </div>
 
 

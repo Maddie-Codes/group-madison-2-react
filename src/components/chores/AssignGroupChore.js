@@ -80,11 +80,11 @@ const AssignGroupChore = () => {
 
         if (allParentData.length > 0) {
             const maxDate = new Date(Math.max(...allParentData.map(chore => new Date(chore.dueDate))));
-           const maxDateChanged=(maxDate.toISOString().split('T')[0]);
-           console.log("Inside maxDateChanged"+maxDateChanged);
-           setMaxDueDate(maxDateChanged);
+            const maxDateChanged = (maxDate.toISOString().split('T')[0]);
+            // console.log("Inside maxDateChanged"+maxDateChanged);
+            setMaxDueDate(maxDateChanged);
         }
-   
+
     }, [maxDueData, maxDueDate]);
 
 
@@ -107,9 +107,10 @@ const AssignGroupChore = () => {
                     .then(kidsChores => {
                         const kidChoresMap = {};
                         kidsChores.forEach(kidChore => {
-                           // console.log(JSON.stringify(kidChore.chores));
+                            // console.log(JSON.stringify(kidChore.chores));
                             kidChoresMap[kidChore.kidId] = kidChore.chores;
-
+                            //console.log("Inside the stringfy"+JSON.stringify(kidChore.chores));
+                            // console.log("Inside the stringfy   due date    "+JSON.stringify(kidChore.chores.dueDate));
                         });
                         setKidGroupChores(kidChoresMap);
                     })
