@@ -21,8 +21,8 @@ html {
   
   form {
     margin: auto;
-    text-align: left;
-    border: 3px solid green;
+    width: 75%;
+    border: 3px solid #3D5656;
     padding: 10px;
   }
   
@@ -31,6 +31,12 @@ html {
     width: 150px;
     margin-right: 10px;
     margin-bottom: 10px;
+  }
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style-type: none;
   }
   
   .label-value {
@@ -63,3 +69,12 @@ html {
     width: 60px;
     font-size: 12px;
   }  
+
+  .group-chore {
+    display: block;
+    align-items: center;
+    gap: 410pxpx;
+    font-size: small;
+    margin-left: 100px;
+    font-size: 20px;
+  }

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/ApiStyles.css';
-const dueDate = '2024-05-27';
 
-const fetchApi = async () => {
+const fetchApi = async (formattedDueDate) => {
 
   try {
-    const response = await fetch(`http://localhost:8080/holiday-data?dueDate=${dueDate}`);
+    const response = await fetch(`http://localhost:8080/holiday-data?dueDate=${formattedDueDate}`);
     if (!response) {
       throw new Error('Failed to fetch data. Response is undefined.');
     }
@@ -19,15 +17,25 @@ const fetchApi = async () => {
     throw error;
   }
 };
-const ApiCall = () => {
+const ApiCall = (dueDate) => {
   const [isLoading, setIsLoading] = useState(true);
   const [box, setBox] = useState(false);
+
+  //If the duedate is a Date then give dueDate or else give due.dueDate.
+  const dateVal = dueDate instanceof Date ? dueDate : dueDate.dueDate;
+
+  // Changing this value to a date 
+  const dateObjectVal = new Date(dateVal);
+
+  // Then format the date as yyyy-mm-dd
+  const formattedDueDate = dateObjectVal.toISOString().split('T')[0];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await fetchApi();
+        const result = await fetchApi(formattedDueDate);
         if (result) {
-          publicHolidayIns();
+          publicHolidayIns(formattedDueDate);
           setBox(true);
         }
       } catch (error) {
@@ -37,10 +45,10 @@ const ApiCall = () => {
       }
     };
 
-    const publicHolidayIns = async () => {
+    const publicHolidayIns = async (formattedDueDate) => {
       try {
         const holidayData = {
-          holidayDate: dueDate.toString(),
+          holidayDate: formattedDueDate,
         };
         const response = await fetch('http://localhost:8080/holiday-insert', {
           method: 'POST',
@@ -57,9 +65,9 @@ const ApiCall = () => {
     };
 
 
-    fetchData();
+    fetchData(formattedDueDate);
 
-  }, []);
+  }, [formattedDueDate]);
 
   const closeBox = () => {
     setBox(false);
@@ -73,7 +81,7 @@ const ApiCall = () => {
       {box && (
         <div className="dialog-overlay">
           <div className="dialog-box">
-            <p>{dueDate} is a public holiday!</p>
+            <p>{formattedDueDate} is a public holiday!</p>
             <button onClick={closeBox}>Ok</button>
           </div>
         </div>

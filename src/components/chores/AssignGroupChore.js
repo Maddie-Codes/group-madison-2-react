@@ -3,7 +3,8 @@ import DatePicker from 'react-datepicker';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/AssignGroup.css';
 import { useNavigate } from 'react-router-dom';
-import isEqual from 'react-fast-compare';
+//import isEqual from 'react-fast-compare';
+import ApiCall from '../api/ApiCall.js'
 const username = "AbbyBarber";
 
 
@@ -13,7 +14,7 @@ const AssignGroupChore = () => {
     const [kidDropValue, setKidDropValue] = useState('');
     //State to store kid
     const [kids, setKids] = useState([]);
-    const [dueDate, setDueDate] = useState('');
+    const [dueDate, setDueDate] = useState(null);
     const [kidGroupChores, setKidGroupChores] = useState([]);
     //State for dynamic group
     const [lengthChoreGroup, setLengthChoreGroup] = useState({});
@@ -21,6 +22,7 @@ const AssignGroupChore = () => {
     //State for max date,data
     const [maxDueData, setMaxDueData] = useState({});
     const [maxDueDate, setMaxDueDate] = useState({});
+
     // Calendar Due date 
     const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
         <button type="button" onClick={onClick} ref={ref}>
@@ -50,7 +52,6 @@ const AssignGroupChore = () => {
                     return fetch(`http://localhost:8080/api/groupassign/allchores?kidId=${kid.kidId}`)
                         .then(response => response.json())
                         .then(choresData => ({
-                            //  setMaxDueData(data);
                             kidId: kid.kidId,
                             chores: choresData
                         }));
@@ -79,11 +80,13 @@ const AssignGroupChore = () => {
 
         if (allParentData.length > 0) {
             const maxDate = new Date(Math.max(...allParentData.map(chore => new Date(chore.dueDate))));
-            setMaxDueDate(maxDate.toISOString());
-            console.log("maxDate" + maxDate);
-            console.log("maxDueDate" + maxDueDate);
+           const maxDateChanged=(maxDate.toISOString().split('T')[0]);
+           console.log("Inside maxDateChanged"+maxDateChanged);
+           setMaxDueDate(maxDateChanged);
         }
+   
     }, [maxDueData, maxDueDate]);
+
 
     //From the parent get the kid id 
     //The second fetches the Chores data.
@@ -104,11 +107,9 @@ const AssignGroupChore = () => {
                     .then(kidsChores => {
                         const kidChoresMap = {};
                         kidsChores.forEach(kidChore => {
+                           // console.log(JSON.stringify(kidChore.chores));
                             kidChoresMap[kidChore.kidId] = kidChore.chores;
-                            //  console.log(JSON.stringify(kidChore.chores));
-                            // const equalDate=kidChore.chores.filter(choresins=>choresins.dueDate===maxDueDate);
-                            // kidChoresMap[kidChore] = equalDate;
-                            //  console.log(equalDate);
+
                         });
                         setKidGroupChores(kidChoresMap);
                     })
@@ -121,14 +122,11 @@ const AssignGroupChore = () => {
             });
     }, [maxDueDate]);
 
-    const handleDateChange = (date) => {
-        setDueDate(date);
+    const handleDateChange = (data) => {
+        setDueDate(data);
     };
 
-    //////////
-
     ///////Chore Group Dynamic Name Generation/////////////////////
-
     useEffect(() => {
         // Fetch data and calculate lengthChoreGroup
         const fetchedLengthChoreGroup = {};
@@ -181,10 +179,9 @@ const AssignGroupChore = () => {
         }
     };
     return (
-        <div>
+        <div className='group-chore'>
             <h2>List of all the Chore Group</h2>
-
-            <div>
+            <div >
                 <option key="default" value="">Select a Kid:</option>
                 <select
                     id="kidId"
@@ -196,6 +193,7 @@ const AssignGroupChore = () => {
                     ))}
                 </select>
             </div>
+
             <div>
                 <div>
                     <label>Select a Date:</label>
@@ -207,6 +205,7 @@ const AssignGroupChore = () => {
                         dateFormat="yyyy-MM-dd"
                     />
                 </div>
+                {dueDate && <ApiCall dueDate={dueDate} />}
                 <div></div>
                 <label>Chore Group:</label>
                 <select

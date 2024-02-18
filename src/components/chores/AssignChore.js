@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/ChoreStyles.css';
+import ApiCall from '../api/ApiCall.js'
 
 // Calendar icon component
 const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
@@ -58,9 +59,12 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
   return (
     <form onSubmit={handleSubmit}>
       {/* Dropdown for selecting a kid */}
-      <div className='date-kid'>
 
+      <div className='date-kid'>
+      <label > 
+        Kid:
         <select value={selectedKid} onChange={handleKidChange}>
+
           <option value="">Select Kid</option>
           {kids.map((kid) => (
             <option key={kid.kidId} value={kid.kidId}>
@@ -68,6 +72,7 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
             </option>
           ))}
         </select>
+        </label>
 
 
         {/* Date picker for selecting a due date */}
@@ -80,7 +85,8 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
           customInput={<CalendarIcon />}
           dateFormat="yyyy-MM-dd"
         />
-
+        {/* Api date checking added  */}        
+        {dueDate && <ApiCall dueDate={dueDate} />}
 
       </div>
 
