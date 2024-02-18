@@ -8,6 +8,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    /* margin-bottom: 200px; */
     margin-top: 7%;
     min-width: auto;
     min-height: 500px;
@@ -30,7 +31,7 @@
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 25px;
-    margin-bottom: 250px;
+    margin-bottom: 25px;
 }
 
 .landingPage-btn:hover {

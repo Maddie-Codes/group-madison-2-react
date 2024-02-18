@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { request, setAuthToken } from '../axios_helper';
 import { Button } from 'bootstrap';
 import '../styles/Register.css';
+import Contact from './Contact';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -105,6 +106,9 @@ const Register = () => {
                     </div>
                 </form>
             </div>
+            <footer>
+                <Contact />
+            </footer>
         </div>
     )
 

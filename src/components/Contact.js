@@ -5,6 +5,10 @@ import '../styles/Contact.css';
 
 const Contact = () => {
 
+    const message = () => {
+        <p>Thanks for reaching out!</p>
+    }
+
     const [formData, setFormData] = useState({
         id: "",
         name: "",
@@ -70,7 +74,7 @@ const Contact = () => {
                                 <input type="email" name="email" className="form-control" placeholder="email" onChange={onChangeHandler} />
                             </div>
                             <div className="mb-3 form-outline mb-4">
-                                <label for="status" className="form-label contact-form">Category`</label>
+                                <label for="status" className="form-label contact-form">Category</label>
                                 <select class="form-select" name="contactStatus" aria-label="select status" onChange={onChangeHandler}>
                                     <option selected>Choose one of the following</option>
                                     <option value="1">Questions</option>
@@ -86,7 +90,7 @@ const Contact = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit button" class="btn btn-primary">Submit</button>
+                            <button type="submit button" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/login.css';
 import { request, setAuthToken } from '../axios_helper';
 import { Link, useNavigate } from 'react-router-dom';
+import Contact from './Contact';
 
 const ParentLogin = () => {
     const navigate = useNavigate();
@@ -61,6 +62,9 @@ const ParentLogin = () => {
                     </div>
                 </form>
             </div>
+            <footer>
+                <Contact />
+            </footer>
         </div>
     )
 }

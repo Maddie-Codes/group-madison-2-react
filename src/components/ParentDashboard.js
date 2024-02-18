@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import Contact from './Contact';
 
 const ParentDashboard = () => {
 
@@ -12,7 +13,10 @@ const ParentDashboard = () => {
                         <h1 className='display-4'>Welcome</h1>
                         <p className='lead'>Let's see if we can get this to work!</p>
                     </div>
-                </div>                
+                </div> 
+                <footer>
+                <Contact />
+            </footer>               
             </div>
         )
     }
