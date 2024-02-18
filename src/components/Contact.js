@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { requestAnon } from "../axios_helper";
+import axios from "axios";
+import { requestAnon } from '../axios_helper'
 import '../styles/Contact.css';
 
 const Contact = () => {
 
-    const message = () => {
-        <p>Thanks for reaching out!</p>
-    }
 
     const [formData, setFormData] = useState({
         id: "",
@@ -27,13 +25,58 @@ const Contact = () => {
     }, [])
 
     const onChangeHandler = (event) => {
-      
+
         const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    // const onContactSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const response = await fetch(`http://localhost:8080/api/contact`)
+    // axios({
+    //     method: "POST",
+    //     url: "/api/contact",
+    //     data: formData,
+    //     headers: { "name": "value" }
+    // })
+    //     .then((repsonse) => {
+    //         setFormData({
+    //             name: "",
+    //             email: "",
+    //             contactStatus: "",
+    //             message: ""
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.error("Submission failed:", error)
+    //     })
+    // }
+
+    // const onContactSubmit = async (e) => {
+    //     e.preventDefault();
+    
+    //     const repsonse = await fetch(`http://localhost:8080/api/contact`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Contect-Type': 'appication/json',
+    //         },
+    //         // body: JSON.stringify({ ...prevData }),
+    //     })
+    
+    //     if (repsonse.ok) {
+    //         console.log(`submission successful`);
+    //         setFormData({
+    //             name: "",
+    //             email: "",
+    //             contactStatus: "",
+    //             message: ""
+    //         })
+    //     } else {
+    //         console.error('submission failed:')
+    //     }
+    //  }
+
     const onContactSubmit = (e) => {
-      
         e.preventDefault();
         requestAnon("POST", '/api/contact', formData)
             .then((response) => {
@@ -43,7 +86,6 @@ const Contact = () => {
                     contactStatus: "",
                     message: ""
                 });
-                // navigate('/api')
             })
             .catch((error) => {
                 console.error("Submission failed:", error)
@@ -67,7 +109,7 @@ const Contact = () => {
                         <div class="modal-body">
                             <div className="mb-3 form-outline mb-4">
                                 <label for="name" className="form-label contact-form">Name</label>
-                                <input type="text input-lg" name="name"className="form-control" placeholder="Name" onChange={onChangeHandler} />
+                                <input type="text input-lg" name="name" className="form-control" placeholder="Name" onChange={onChangeHandler} />
                             </div>
                             <div className="mb-3 form-outline mb-4">
                                 <label for="email" className="form-label contact-form">Email</label>
