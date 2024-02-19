@@ -32,8 +32,8 @@ const KidRegister= () => {
     const onKidRegister = (e) => {
         e.preventDefault();
         request("POST", "/api/kidRegister", formData)
-        .then((response) => {
-            setAuthToken(response.data.token);
+        .then(() => {
+            // setAuthToken(response.data.token);
             setFormData({
                 name: "",
                 username: "",
@@ -84,7 +84,7 @@ const KidRegister= () => {
                         <label className='form-label' htmlFor='verifyPassword'>Verify Password</label>
                     </div>
                     <div className='row justify-content-center d-grid gap-2 col-6 mx-auto'>
-                        <button type='submit' className='btn btn-primary register-btn'>Create Account</button>
+                        <button type='submit button' className='btn btn-primary register-btn'>Create Account</button>
                     </div>
                 </form>
             </div>

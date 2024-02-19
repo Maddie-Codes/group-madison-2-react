@@ -37,8 +37,8 @@ const Register = () => {
     const onRegister = (e) => {
         e.preventDefault();
         request("POST", "/api/register", formData)
-        .then((response) => {
-            setAuthToken(response.data.token);
+        .then(() => {
+            // setAuthToken(response.data.token);
             setFormData({
                 firstName: "",
                 lastName: "",
