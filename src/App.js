@@ -18,6 +18,7 @@ import CommentApproveChore from './components/chores/CommentChore';
 import ApiCall from './components/api/ApiCall';
 import KidRegister from './components/KidRegister';
 import KidLogin from './components/KidLogin';
+import RedoChore from './components/chores/RedoChoreCall'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
       <Route path="/api/assignGroupChore" element={<AssignGroupChore />} /> 
       <Route path="/api/approve/comment" element={<CommentApproveChore />} /> 
+      <Route path="/api/redo/comment" element={<RedoChore />} /> 
     </Routes>
   );
 }

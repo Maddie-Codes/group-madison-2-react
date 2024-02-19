@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/AssignGroup.css';
 import { useNavigate } from 'react-router-dom';
-import ApproveChoreComment from './ApproveChoreComment.js';
+import RedoChoreComment from './RedoChoreComment';
 const username = "AbbyBarber";
 const choreId=2;
 
-const CommentChore = () => {
+const RedoChoreCall = () => {
        
       const [commentValue, setCommentValue] = useState('');
       const [statusCheck, setStatusCheck] = useState('');   
@@ -24,17 +24,18 @@ const CommentChore = () => {
         <div>
           {/* Comment box */}
           <div>
+          <button type="button">Redo</button>
             <label>Comment:</label>
             <textarea value={commentValue} onChange={handleCommentChange} />
           </div>
     
           {/* Button to submit the comment */}
           <button type="button" onClick={handleCommentSubmit}>Submit Comment</button>
-          {commentValue && statusCheck && <ApproveChoreComment choreId={choreId} commentValue={commentValue} />}
+          {commentValue && statusCheck && <RedoChoreComment choreId={choreId} commentValue={commentValue} />}
         </div>
         </div>
       );
     };
     
 
-export default CommentChore;
+export default RedoChoreCall;
