@@ -20,6 +20,9 @@ export default function Navbar() {
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Create Chore</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"  href="/api/assignGroupChore">Assign Chore Group</a>
+                            </li>                           
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                                 Select Child

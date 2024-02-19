@@ -21,7 +21,7 @@ const AssignGroupChore = () => {
     const [selectedKidId, setSelectedKidId] = useState('');
     //State for max date,data
     const [maxDueData, setMaxDueData] = useState({});
-    const [maxDueDate, setMaxDueDate] = useState({});
+    const [maxDueDate, setMaxDueDate] = useState(null);
 
     // Calendar Due date 
     const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
@@ -88,15 +88,19 @@ const AssignGroupChore = () => {
     }, [maxDueData, maxDueDate]);
 
 
+    console.log("maxDueDate"+maxDueDate);
+    console.log("maxDueDatetypeof"+ typeof maxDueDate);
     //From the parent get the kid id 
     //The second fetches the Chores data.
     //The third is used for group by kid. 
-    useEffect(() => {
+
+     useEffect(() => {
+        if (maxDueDate!== null) {
         fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
             .then(response => response.json())
             .then(kidsData => {
                 const promises = kidsData.map(kid => {
-                    return fetch(`http://localhost:8080/api/groupassign/allchores?kidId=${kid.kidId}`)
+                    return fetch(`http://localhost:8080/api/groupassign/allchoresdate?kidId=${kid.kidId}&maxDate=${maxDueDate}`)
                         .then(response => response.json())
                         .then(choresData => ({
                             kidId: kid.kidId,
@@ -121,7 +125,7 @@ const AssignGroupChore = () => {
             .catch(error => {
                 console.error('Error fetching kids:', error);
             });
-    }, [maxDueDate]);
+    }}, [maxDueDate]);
 
     const handleDateChange = (data) => {
         setDueDate(data);
@@ -135,7 +139,7 @@ const AssignGroupChore = () => {
             .filter(([_, chores]) => chores && chores.length !== 0)
             .forEach(([kidId, chores], index) => {
                 // Generate group name dynamically
-                fetchedLengthChoreGroup[kidId] = `Chore Group ${index + 1}`;
+                fetchedLengthChoreGroup[kidId] = `Chore Group ${index + 1} `;
             });
         // Set lengthChoreGroup state
         setLengthChoreGroup(fetchedLengthChoreGroup);
@@ -218,6 +222,7 @@ const AssignGroupChore = () => {
                     {Object.entries(lengthChoreGroup).map(([kidId, groupName]) => (
                         <option key={kidId} value={kidId}>{groupName}</option>
                     ))}
+
                 </select>
             </div>
             <div>
