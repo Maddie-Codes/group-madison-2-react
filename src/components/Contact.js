@@ -118,11 +118,10 @@ const Contact = () => {
                             <div className="mb-3 form-outline mb-4">
                                 <label for="status" className="form-label contact-form">Category</label>
                                 <select class="form-select" name="contactStatus" aria-label="select status" onChange={onChangeHandler}>
-                                    <option selected>Choose one of the following</option>
-                                    <option value="1">Questions</option>
-                                    <option value="2">Technical</option>
-                                    <option value="3">Feedback</option>
-                                    <option value="3">Other</option>
+                                    <option value="0">QUESTIONS</option>
+                                    <option value="1">TECHNICAL</option>
+                                    <option value="2">FEEDBACK</option>
+                                    <option value="3">OTHER</option>
                                 </select>
                             </div>
                             <div className="mb-3 form-outline mb-4">
