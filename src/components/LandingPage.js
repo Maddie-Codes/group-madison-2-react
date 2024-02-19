@@ -11,8 +11,8 @@ export default class LandingPage extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div className='landingPage-body'>
+            <div className='landingPage-body'>
+                <div>
                     <img src={require('../images/TC-logo.png')} alt="Task Crusher Logo" className='landingPage-image' />
                     <div className="bd-content ps-lg-4 d-flex flex-column flex-lg-row align-items-center justify-content-md-center gap-3 mb-4">
                         <div class="d-grid gap-2 d-md-block">
@@ -22,7 +22,7 @@ export default class LandingPage extends React.Component {
                             <a href='./api/parentLogin'>
                                 <button class="btn btn-primary border-0 landingPage-btn" type="button">PARENT LOGIN</button>
                             </a>
-                            <a href='./api/childLogin'>
+                            <a href='./api/kidLogin'>
                                 <button class="btn btn-primary border-0 landingPage-btn" type="button">CHILD LOGIN</button>
                             </a>
                         </div>

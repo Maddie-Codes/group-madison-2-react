@@ -1,7 +1,8 @@
-import React from 'react';
-import Navbar from './Navbar'
+import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
 const ParentDashboard = () => {
+
     
         return (
             <div className='body'>

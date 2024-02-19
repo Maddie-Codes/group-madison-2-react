@@ -127,5 +127,3 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
 };
 
 export default AssignChore;
-
-

@@ -3,7 +3,7 @@ import '../styles/login.css';
 import { request, setAuthToken } from '../axios_helper';
 import { Link, useNavigate } from 'react-router-dom';
 
-const ParentLogin = () => {
+const KidLogin = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -11,13 +11,13 @@ const ParentLogin = () => {
         password: "",
     })
 
-    const onSubmitParentLogin = async (e) => {
+    const onSubmitKidLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await request("POST", "/api/parentLogin", formData);
+            const response = await request("POST", "/api/kidLogin", formData);
             setAuthToken(response.data.token);
-            navigate('api/parent-dashboard')
+            navigate('api/kid-dashboard')
         } catch (error) {
             console.error("Login failed:", error);
         }
@@ -36,7 +36,7 @@ const ParentLogin = () => {
                 </a>
             </header>
             <div className='tab-pane fade show active' id='pills-register'>
-                <form className='login-form' onSubmit={onSubmitParentLogin}>
+                <form className='login-form' onSubmit={onSubmitKidLogin}>
                     <div className=''>
                         <div className='jumbotron jumbotron'>
                             <div className='container'>
@@ -54,9 +54,8 @@ const ParentLogin = () => {
                         <label className='form-label' htmlFor='password'>Password</label>
                     </div>
                     <div className='row justify-content-center d-grid gap-2 col-6 mx-auto'>
-                        <Link to='/api/parent-dashboard'>
-                            {/* <button className='btn btn-primary register-btn' type='submit'>Sign In</button> */}
-                            <a class="btn btn-primary register-btn" href="ParentLogin" type="submit" role="submit" >Sign In</a>
+                        <Link to='/api/kid-dashboard'>
+                            <button className='btn btn-primary register-btn' type='submit'>Sign In</button>
                         </Link>
                     </div>
                 </form>
@@ -65,4 +64,4 @@ const ParentLogin = () => {
     )
 }
 
-export default ParentLogin;
+export default KidLogin;

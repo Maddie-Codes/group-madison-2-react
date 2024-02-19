@@ -15,13 +15,19 @@ import AddReward from './components/rewards/AddReward';
 import EditReward from './components/rewards/EditReward';
 import AssignGroupChore from './components/chores/AssignGroupChore';
 import CommentApproveChore from './components/chores/CommentChore';
+import ApiCall from './components/api/ApiCall';
+import KidRegister from './components/KidRegister';
+import KidLogin from './components/KidLogin';
+
 function App() {
   return (
     <Routes>
       <Route path='/' element={<LandingPage />} />
       <Route path='/api/register' element={<Register />} />
       <Route path='/api/parentLogin' element={<ParentLogin />} />
-      <Route path='/api/parentDash' element={<ParentDashboard />} />
+      <Route path='/api/kidLogin' element={<KidLogin />} />
+      <Route path='/api/parent-dashboard' element={<ParentDashboard />} />
+      <Route path='/api/kidRegister' element={<KidRegister />} />
       <Route path="/api/chores/add" element={<AddChores />} />
       <Route path="/api/chores/list" element={<ChoresList />} />
       <Route path="/api/assignments/assigned-chores" element={<AssignedChores />} />

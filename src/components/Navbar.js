@@ -1,7 +1,9 @@
 import * as React from 'react';
-import '../styles/Navbar.css'
+import '../styles/Navbar.css';
+import { useNavigate } from 'react-router';
 
-export default function Header(props) {
+export default function Navbar() {
+
     return (
         <header className='header-body'>
             <nav class="navbar navbar-expand-lg">
@@ -13,7 +15,7 @@ export default function Header(props) {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Add Child</a>
+                                <a class="nav-link active" aria-current="page" href="/api/kidRegister">Add Child</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Create Chore</a>
