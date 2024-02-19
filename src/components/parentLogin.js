@@ -18,7 +18,7 @@ const ParentLogin = () => {
         try {
             const response = await request("POST", "/api/parentLogin", formData);
             setAuthToken(response.data.token);
-            navigate('api/parent-dashboard')
+            navigate('/api/parent-dashboard')
         } catch (error) {
             console.error("Login failed:", error);
         }
@@ -55,10 +55,8 @@ const ParentLogin = () => {
                         <label className='form-label' htmlFor='password'>Password</label>
                     </div>
                     <div className='row justify-content-center d-grid gap-2 col-6 mx-auto'>
-                        <Link to='/api/parent-dashboard'>
-                            {/* <button className='btn btn-primary register-btn' type='submit'>Sign In</button> */}
-                            <a class="btn btn-primary register-btn" href="ParentLogin" type="submit button" role="submit" >Sign In</a>
-                        </Link>
+                            <button className='btn btn-primary register-btn' type='submit button'>Sign In</button>
+                            {/* <a class="btn btn-primary register-btn" href="ParentLogin" type="submit button" role="submit" >Sign In</a> */}
                     </div>
                 </form>
             </div>

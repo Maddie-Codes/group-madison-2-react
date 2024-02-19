@@ -7,7 +7,7 @@ import UpdateChore from './components/chores/UpdateChore';
 import ChoresList from './components/chores/ChoresList';
 import LandingPage from './components/LandingPage';
 import Register from './components/Register';
-import ParentLogin from './components/parentLogin'
+import ParentLogin from './components/ParentLogin';
 import ParentDashboard from './components/ParentDashboard';
 import AssignedChores from './components/chores/AssignedChores';
 import RewardManagement from './components/rewards/RewardManagement';

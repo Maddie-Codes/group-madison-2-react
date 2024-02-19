@@ -27,11 +27,11 @@ const Register = () => {
             password: "",
             verifyPassword: "",
         });
-    },[])
+    }, [])
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value}));
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     const onRegister = (e) => {
