@@ -37,8 +37,8 @@ const Register = () => {
     const onRegister = (e) => {
         e.preventDefault();
         request("POST", "/api/register", formData)
-        .then(() => {
-            // setAuthToken(response.data.token);
+        .then((response) => {
+            setAuthToken(response.data.token);
             setFormData({
                 firstName: "",
                 lastName: "",
@@ -47,7 +47,7 @@ const Register = () => {
                 password: "",
                 verifyPassword: "",
             });
-            navigate('/api/parentLogin');
+            navigate('/api/parent-dashboard/?username=$username');
         })
         .catch((error) => {
             console.error("Registration failed:", error);
