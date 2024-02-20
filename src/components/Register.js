@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { request, setAuthToken } from '../axios_helper';
-import { Button } from 'bootstrap';
 import '../styles/Register.css';
 import Contact from './Contact';
+import { useLocation } from 'react-router-dom';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -17,6 +17,7 @@ const Register = () => {
         verifyPassword: "",
     });
 
+
     useEffect(() => {
 
         setFormData({
@@ -28,6 +29,7 @@ const Register = () => {
             verifyPassword: "",
         });
     }, [])
+
 
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
@@ -47,7 +49,7 @@ const Register = () => {
                 password: "",
                 verifyPassword: "",
             });
-            navigate('/api/parent-dashboard/?username=$username');
+            navigate('/api/parent-dashboard');
         })
         .catch((error) => {
             console.error("Registration failed:", error);

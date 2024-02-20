@@ -40,7 +40,7 @@ const KidRegister= () => {
                 password: "",
                 verifyPassword: "",
             });
-            navigate('/api/parent-dashboard/?username=$username')
+            navigate('/api/parent-dashboard')
         })
         .catch((error) => {
             console.error("Registration failed:", error);

@@ -17,6 +17,7 @@ import ApiCall from './components/api/ApiCall';
 import KidRegister from './components/KidRegister';
 import KidLogin from './components/KidLogin';
 import Contact from './components/Contact';
+import KidDashboard from './components/KidDashboard';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path='/api/register' element={<Register />} />
       <Route path='/api/parentLogin' element={<ParentLogin />} />
       <Route path='/api/kidLogin' element={<KidLogin />} />
+      <Route path='/api/kid-dashboard' element={<KidDashboard />} />
       <Route path='/api/parent-dashboard' element={<ParentDashboard />} />
       <Route path='/api/kidRegister' element={<KidRegister />} />
       <Route path="/api/chores/add" element={<AddChores />} />
