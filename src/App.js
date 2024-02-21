@@ -16,6 +16,7 @@ import EditReward from './components/rewards/EditReward';
 import ApiCall from './components/api/ApiCall';
 import KidRegister from './components/KidRegister';
 import KidLogin from './components/KidLogin';
+import KidDashboard from './components/KidDashboard';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Route path="/allrewards" element={<RewardManagement />} />
       <Route path="/addRewards" element={<AddReward />} />
       <Route path="/editRewards/:rewardId" element={<EditReward />} />
+      <Route path="/api/kid-dashboard" element={<KidDashboard />} />
     </Routes>
   );
 }

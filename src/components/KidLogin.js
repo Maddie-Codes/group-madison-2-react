@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/login.css';
 import { request, setAuthToken } from '../axios_helper';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, createSearchParams, useNavigate } from 'react-router-dom';
 
 const KidLogin = () => {
     const navigate = useNavigate();
@@ -10,14 +10,15 @@ const KidLogin = () => {
         username: "",
         password: "",
     })
-
-    const onSubmitKidLogin = async (e) => {
+      
+      const onSubmitKidLogin = async (e) => {
         e.preventDefault();
 
         try {
             const response = await request("POST", "/api/kidLogin", formData);
             setAuthToken(response.data.token);
-            navigate('api/kid-dashboard')
+            navigate({pathname : '/api/kid-dashboard', search : createSearchParams({userName: formData.username}).toString() })
+            
         } catch (error) {
             console.error("Login failed:", error);
         }
@@ -28,6 +29,7 @@ const KidLogin = () => {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+   
     return (
         <div className='body'>
             <header className='header-body'>
@@ -54,9 +56,9 @@ const KidLogin = () => {
                         <label className='form-label' htmlFor='password'>Password</label>
                     </div>
                     <div className='row justify-content-center d-grid gap-2 col-6 mx-auto'>
-                        <Link to='/api/kid-dashboard'>
+                       
                             <button className='btn btn-primary register-btn' type='submit'>Sign In</button>
-                        </Link>
+                    
                     </div>
                 </form>
             </div>
