@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import '../../styles/AssignGroup.css';
 const fetchApi = async (formattedDueDate) => {
 
   try {
@@ -82,7 +82,7 @@ const ApiCall = (dueDate) => {
         <div className="dialog-overlay">
           <div className="dialog-box">
             <p>{formattedDueDate} is a public holiday!</p>
-            <button onClick={closeBox}>Ok</button>
+            <button className="button" onClick={closeBox}>Ok</button>
           </div>
         </div>
       )}

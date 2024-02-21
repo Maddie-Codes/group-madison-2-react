@@ -5,7 +5,7 @@ import ApproveChoreComment from './ApproveChoreComment.js';
 const username = "AbbyBarber";
 const choreId=2;
 
-const CommentChore = () => {
+const CommentChore = (choreId) => {
        
       const [commentValue, setCommentValue] = useState('');
       const [statusCheck, setStatusCheck] = useState('');   

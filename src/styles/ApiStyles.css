@@ -1,76 +1,35 @@
 html {
+  background-color: #ecf8f9;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ecf8f9;
+  margin: 10px;
+  /* padding: 0;
+  display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+  /* height: 100vh; */
+}
+
+  .header {
     background-color: #ecf8f9;
-  }
-  
-  .chore-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    list-style-type: none;
-  }
-  
-  .chore-details {
-    display: block;
-  }
-  
-  .chore-item {
-    align-items: center;
-    width: 175px;
-    box-sizing: border-box;
-    border: hidden;
-    padding: 10px;
+    color:  #3D5656;
+    padding: 20px; 
+    text-align: center; 
+    width: 100%; 
+    font-size: 40px;
     text-align: center;
   }
-  
-  img {
-    width: 120px;
-    height: 120px;
-  }
-  
-  
-  
-  .button-container {
-    display: block;
-    align-items: flex-end;
-    gap: 4px;
-  
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  form {
-    margin: auto;
-    width: 75%;
-    border: 3px solid green;
-    padding: 10px;
-  }
-  
-  label {
-    display: block;
-     width: 150px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  
-  input[type="text"]{
-    width: 30%;
-    height: 20px;
-  }
-  
-  
-  
-  .button,
-  button[type="submit"] {
-    background-color: #3D5656;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px 2px;
-    border-radius: 10px;
-    width: 60px;
-    font-size: 12px;
-  }  
+ .dialog-box{
+  display: block;
+  gap: 4px;
+ }
+ .button,
+button[type="onClick"] {
+  background-color: #3D5656;
+  border: none;
+  color: white;
+  margin: 4px 2px;
+  font-size: 12px;
+}

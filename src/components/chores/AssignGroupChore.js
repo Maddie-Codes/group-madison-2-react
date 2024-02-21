@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/AssignGroup.css';
-import { useNavigate } from 'react-router-dom';
-//import isEqual from 'react-fast-compare';
+//import { useNavigate } from 'react-router-dom';
 import ApiCall from '../api/ApiCall.js'
 const username = "AbbyBarber";
 
@@ -20,9 +19,12 @@ const AssignGroupChore = () => {
     const [lengthChoreGroup, setLengthChoreGroup] = useState({});
     const [selectedKidId, setSelectedKidId] = useState('');
     //State for max date,data
+   // const [maxStatus, setMaxStatus] = useState(null);
     const [maxDueData, setMaxDueData] = useState({});
     const [maxDueDate, setMaxDueDate] = useState(null);
-
+    //Successful message.
+    //const [Oksuccess, setOkSuccess] = useState('');
+    //const[successStatus,setSucessStatus]=useState(false);
     // Calendar Due date 
     const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
         <button type="button" onClick={onClick} ref={ref}>
@@ -74,7 +76,7 @@ const AssignGroupChore = () => {
             });
     }, []);
 
-    //To get the max_date for the parentid
+    //To get the max_date for that particular parentid
     useEffect(() => {
         const allParentData = Object.values(maxDueData).flat();
 
@@ -88,44 +90,42 @@ const AssignGroupChore = () => {
     }, [maxDueData, maxDueDate]);
 
 
-    console.log("maxDueDate"+maxDueDate);
-    console.log("maxDueDatetypeof"+ typeof maxDueDate);
+    console.log("maxDueDate" + maxDueDate);
+    console.log("maxDueDatetypeof" + typeof maxDueDate);
     //From the parent get the kid id 
     //The second fetches the Chores data.
     //The third is used for group by kid. 
 
-     useEffect(() => {
-        if (maxDueDate!== null) {
-        fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
-            .then(response => response.json())
-            .then(kidsData => {
-                const promises = kidsData.map(kid => {
-                    return fetch(`http://localhost:8080/api/groupassign/allchoresdate?kidId=${kid.kidId}&maxDate=${maxDueDate}`)
-                        .then(response => response.json())
-                        .then(choresData => ({
-                            kidId: kid.kidId,
-                            chores: choresData
-                        }));
-                });
-                Promise.all(promises)
-                    .then(kidsChores => {
-                        const kidChoresMap = {};
-                        kidsChores.forEach(kidChore => {
-                            // console.log(JSON.stringify(kidChore.chores));
-                            kidChoresMap[kidChore.kidId] = kidChore.chores;
-                            //console.log("Inside the stringfy"+JSON.stringify(kidChore.chores));
-                            // console.log("Inside the stringfy   due date    "+JSON.stringify(kidChore.chores.dueDate));
-                        });
-                        setKidGroupChores(kidChoresMap);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching chores:', error);
+    useEffect(() => {
+        if (maxDueDate !== null) {
+            fetch(`http://localhost:8080/api/groupassign/allkids?username=${username}`)
+                .then(response => response.json())
+                .then(kidsData => {
+                    const promises = kidsData.map(kid => {
+                        return fetch(`http://localhost:8080/api/groupassign/allchoresdate?kidId=${kid.kidId}&maxDate=${maxDueDate}`)
+                            .then(response => response.json())
+                            .then(choresData => ({
+                                kidId: kid.kidId,
+                                chores: choresData
+                            }));
                     });
-            })
-            .catch(error => {
-                console.error('Error fetching kids:', error);
-            });
-    }}, [maxDueDate]);
+                    Promise.all(promises)
+                        .then(kidsChores => {
+                            const kidChoresMap = {};
+                            kidsChores.forEach(kidChore => {
+                                kidChoresMap[kidChore.kidId] = kidChore.chores;
+                            });
+                            setKidGroupChores(kidChoresMap);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching chores:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error fetching kids:', error);
+                });
+        }
+    }, [maxDueDate]);
 
     const handleDateChange = (data) => {
         setDueDate(data);
@@ -150,26 +150,29 @@ const AssignGroupChore = () => {
     };
     const handleKidDropValue = (e) => {
         setKidDropValue(e.target.value);
+      //  setSucessStatus(false);
     };
 
 
     const handleSubmitGroup = (e) => {
+        //This will stop from the refresh of the page.
+        e.preventDefault(); 
         const formattedDueDate = dueDate.toISOString().split('T')[0];
+       // const formattedMaxDueDate = maxDueDate.toISOString().split('T')[0];
         //  console.log("kidDropValueId"+kidDropValueId);
         console.log("selectedKidId" + selectedKidId);
         console.log("formattedDueDate" + formattedDueDate);
         console.log("kidDropValue" + kidDropValue);
-        handleAssignGroupChore(selectedKidId, formattedDueDate, kidDropValue);
+        handleAssignGroupChore(selectedKidId, formattedDueDate, kidDropValue,maxDueDate);
     };
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     //////Note:selectedKidId Contains the kid_id whose chores we have made as an group.
     //////Note:kidDropValue Contains the kid_id for whom we are making an entry in the chores.
-    const handleAssignGroupChore = async (selectedKidId, dueDate, kidDropValue,) => {
+    const handleAssignGroupChore = async (selectedKidId, dueDate, kidDropValue,maxDueDate) => {
         console.log("selectedKidId" + selectedKidId);
         console.log("kidDropValue" + kidDropValue);
-        //const formattedDueDate = dueDate.toISOString().split('T')[0];
-        const response = await fetch(`http://localhost:8080/insert?selectedKidId=${selectedKidId}&dueDate=${dueDate}&setKidDropValue=${kidDropValue}`, {
+        const response = await fetch(`http://localhost:8080/insert?selectedKidId=${selectedKidId}&dueDate=${dueDate}&setKidDropValue=${kidDropValue}&maxDueDate=${maxDueDate}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -178,70 +181,86 @@ const AssignGroupChore = () => {
 
         if (response.ok) {
             console.log('Group Chore assigned successfully');
-            navigate('/api/assignGroupChore');
+          //  setOkSuccess('Group Chore assigned successfully');
+            // setSucessStatus(true);
+          // navigate('/api/assignGroupChore');
         } else {
             console.error('Failed to assign chore');
         }
     };
     return (
-        <div className='group-chore'>
-            <h2>List of all the Chore Group</h2>
-            <div >
-                <option key="default" value="">Select a Kid:</option>
-                <select
-                    id="kidId"
-                    value={kidDropValue}
-                    onChange={handleKidDropValue}
-                ><option value="">Select Kid</option>
-                    {kids.map((kidAlone, index) => (
-                        <option id={index} value={kidAlone.kidId}>{kidAlone.name}</option>
-                    ))}
-                </select>
-            </div>
-
-            <div>
-                <div>
-                    <label>Select a Date:</label>
-                    <DatePicker
-                        id="dueDate"
-                        selected={dueDate}
-                        onChange={handleDateChange}
-                        customInput={<CalendarIcon />}
-                        dateFormat="yyyy-MM-dd"
-                    />
-                </div>
-                {dueDate && <ApiCall dueDate={dueDate} />}
-                <div></div>
-                <label>Chore Group:</label>
-                <select
-                    id="group-dropdown"
-                    value={selectedKidId}
-                    onChange={handleKidSelect}
-                >
-                    <option value="">Select</option>
-                    {Object.entries(lengthChoreGroup).map(([kidId, groupName]) => (
-                        <option key={kidId} value={kidId}>{groupName}</option>
-                    ))}
-
-                </select>
-            </div>
-            <div>
-            </div>
-            <div>
-                <label > All Chores</label>
-                {selectedKidId && kidGroupChores[selectedKidId] && (
-                    <ul>
-                        {kidGroupChores[selectedKidId].map(chore => (
-                            <li key={chore.id}>{chore.description}</li>
+      
+        <div className='assign-group'>
+                <h2 className='header-group'>List of all the Chore Group</h2>
+                <form className='form-display'>
+                <div >
+                    {/*Kid Selection Dropdown.*/}
+                    <option key="default" value="" className='form-selectheader'>Select a Kid:</option>
+                    <select
+                        id="kidId"
+                        value={kidDropValue}
+                        onChange={handleKidDropValue}
+                        className="form-select"
+                    ><option value="">Select Kid</option>
+                        {kids.map((kidAlone, index) => (
+                            <option id={index} value={kidAlone.kidId}>{kidAlone.name}</option>
                         ))}
-                    </ul>
+                    </select>
+                </div>
 
-                )}
-            </div>
-            <button onClick={handleSubmitGroup}>Assign</button>
+                <div>
+                    <div>
+                        <label className='form-selectheader'>Select a Date:</label>
+                        {/*Date Selection*/}
 
+                        <DatePicker
+                            id="dueDate"
+                            className="form-select-date"
+                            selected={dueDate}
+                            onChange={handleDateChange}
+                            customInput={<CalendarIcon />}
+                            dateFormat="yyyy-MM-dd"
+                        />
+                    </div>
+
+                    {/*Integrated with the Public Holiday API*/}
+                    {dueDate && <ApiCall dueDate={dueDate} />}
+                    <div></div>
+                    {/*Chore Group Selection Dropdown.*/}
+                    <label className='form-selectheader'>Chore Group:</label>
+                    <select
+                        id="group-dropdown"
+                        value={selectedKidId}
+                        onChange={handleKidSelect}
+                        className="form-select"
+                    >
+                        <option value="">Select</option>
+                        {Object.entries(lengthChoreGroup).map(([kidId, groupName]) => (
+                            <option key={kidId} value={kidId}>{groupName}</option>
+                        ))}
+
+                    </select>
+                </div>
+                <div>
+                </div>
+                <div>
+                    {/*The corresponding Chore Group.*/}
+                    <label className='form-selectheader'> All Chores</label>
+                    {selectedKidId && kidGroupChores[selectedKidId] && (
+                        <ul>
+                            {kidGroupChores[selectedKidId].map(chore => (
+                                <li key={chore.id}>{chore.description}</li>
+                            ))}
+                        </ul>
+                    )}
+                    {/*After the selection it will still stay in the same page and im not reseting as if i re-set then the date value will get changed.*/}
+                </div>
+                <button className="button-assign" onClick={handleSubmitGroup}>Assign</button>
+            </form>
+
+           {/* {Oksuccess && <p className='sucess'>{Oksuccess}</p>}*/}
+           
         </div>
-
     );
 };
 

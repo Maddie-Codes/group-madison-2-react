@@ -3,9 +3,10 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/ChoreStyles.css';
+////////Exteranl API Call Added by Monica//////////////////////
 import ApiCall from '../api/ApiCall.js';
-import ApiReward from '../api/ApiRewardsPointValue.js';
-
+import ApiExternalReward from '../api/ApiRewardsPointValue.js';
+///////////////////////////////////////////////////////////////
 // Calendar icon component
 const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
   <button type="button" onClick={onClick} ref={ref}>
@@ -21,8 +22,9 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
   const [selectedValueType, setSelectedValueType] = useState('points');
   const [selectedValue, setSelectedValue] = useState(1);
   const [kids, setKids] = useState([]);
-  const [rewardsStatus,setRewardsStatus]=useState(0);
-
+  //Exteranl API Call Added by Monica////////////////////////
+  const [rewardsStatus, setRewardsStatus] = useState(false);
+/////////////////////////////////////////////////////////////
   // Fetch the list of kids from the server when the component is mounted
   useEffect(() => {
     fetch('http://localhost:8080/api/assignments/kids')
@@ -49,6 +51,9 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
   // Handler function for changing the selected value (number input)
   const handleValueChange = (e) => {
     setSelectedValue(parseInt(e.target.value, 10));
+  //Exteranl API Call Added by Monica////////////////////////
+    setRewardsStatus(false);
+    /////////////////////////////////////////////////////////////
   };
 
   // Handler function for form submission
@@ -57,7 +62,12 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
     await handleAssignChore(choreId, selectedKid, dueDate, selectedValueType, selectedValue);
   }
 
-
+    //Exteranl API Call Added by Monica////////////////////////
+    //Handler for Assign/////
+  const handleAssignClick = () => {
+    setRewardsStatus(true);
+  };
+    /////////////////////////////////////////////////////////////
   return (
     <form onSubmit={handleSubmit}>
       {/* Dropdown for selecting a kid */}
@@ -83,11 +93,13 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
           customInput={<CalendarIcon />}
           dateFormat="yyyy-MM-dd"
         />
-
-        {/* Api date checking added  */}        
+        {/* External Api date Added by Monica  */}
+        {/* External Api date checking added  */}
         {dueDate && <ApiCall dueDate={dueDate} />}
 
       </div>
+
+
 
       {/* Dropdown for selecting value type (points or dollars) */}
       <div className='date-kid'>
@@ -96,7 +108,9 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
           <option value="Points">Points</option>
           <option value="Dollars">Dollars</option>
         </select>
-
+        {/* Number input for selecting a value */}
+        {/*Added by Monica Since the Value tab is small. */}
+        {/* style={{ width: '30px', height: '30px', fontSize: '30px' }}*/}
 
         {/* Number input for selecting a value */}
         <input
@@ -105,15 +119,16 @@ const AssignChore = ({ choreId, handleAssignChore }) => {
           onChange={handleValueChange}
           min="1"
           max="100"
+          style={{ width: '30px', height: '30px', fontSize: '15px' }}
         />
-                  {/* Api Rewards call added  */}        
-                  {selectedValue !== null && selectedValue > 0 &&dueDate&&rewardsStatus==true&& <ApiReward dueDate={dueDate} points={selectedValue} />}
-
-</div>
+      </div>
      {/* Hidden input for storing choreId */}
       <input type="hidden" name="choreId" value={choreId} />
       {/* Button to submit the form */}
-      <button type="submit">Assign</button>
+      <button type="submit"  onClick={handleAssignClick}>Assign</button>
+
+     {/*Exteranl API Call Added by Monica*/}  
+      {rewardsStatus === true && dueDate && <ApiExternalReward choreId={choreId} dueDate={dueDate} points={selectedValue} />}
     </form>
 
 

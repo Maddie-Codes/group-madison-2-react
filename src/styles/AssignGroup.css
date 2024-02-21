@@ -1,80 +1,95 @@
-html {
-    background-color: #ecf8f9;
-  }
-  
-  img {
-    width: 120px;
-    height: 120px;
-  }
-  
-  
-  .button-container {
-    display: block;
-    align-items: flex-end;
-    gap: 4px;
-  
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  
-  form {
-    margin: auto;
-    width: 75%;
-    border: 3px solid #3D5656;
-    padding: 10px;
-  }
-  
-  label {
-    display: block;
-    width: 150px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-  .form-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    list-style-type: none;
-  }
-  
-  .label-value {
-    display: block;
-    width: 150px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  input[type="text"]{
-    width: 30%;
-    height: 20px;
-  }
-  .kidId div {
-    margin-right: 10px; 
-  }
-  
-  
-  .button,
-  button[type="submit"] {
-    background-color: #3D5656;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px 2px;
-    border-radius: 10px;
-    width: 60px;
-    font-size: 12px;
-  }  
+.assign-group {
+  background-color: #ECF8F9;
+}
+.header-group {
+  color:  #1c7a7a;
+  padding: 20px; 
+  text-align: center; 
+  width: 100%; 
+  font-size: 30px;
+  text-align: left;
+  margin: 50px 50px;
+  font-weight: bold;
+}
 
-  .group-chore {
-    display: block;
-    align-items: center;
-    gap: 410pxpx;
-    font-size: small;
-    margin-left: 100px;
-    font-size: 20px;
-  }
+.dialog-box{
+  display: block;
+  gap: 4px;
+ }
+ .button,
+button[type="onClick"] {
+  background-color: #3D5656;
+  border: none;
+  color: white;
+  margin: 4px 2px;
+  font-size: 12px;
+}
+.form-display {
+  display: flex;
+  align-items: flex-start;/*for row wise.*/
+  margin-top: 30px;
+  height:100px;
+  width:100px;
+  margin: 20px;
+  font-size: 20px;
+}
+.form-select{
+  margin-bottom: 20px; 
+  margin-left  : 2px; 
+
+}
+.form-selectheader{
+  margin-bottom: 20px; 
+  margin-left  : 30px; 
+  width: 150px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.button-assign{
+  background-color: #3D5656;
+  border: none;
+  color: white;
+  margin: 4px 2px;
+  font-size: 20px;
+
+}
+.form-select-date{
+  margin: auto;
+  justify-content: center; 
+  align-items: center; 
+  text-align: center;
+  display: inline-block; 
+}
+.success{
+  background-color: #3D5656;
+  border: none;
+  color: white;
+  margin: 4px 2px;
+  font-size: 40;
+  font-weight: bold;
+  position: absolute;
+}
+.container {
+  display: flex;
+  
+}
+.container2 {
+  display: flex;
+  align-items: center;
+}
+.column {
+  flex: 1; /* Each column takes up equal space */
+  margin: 0 10px; /* Add margin between columns */
+  padding: 20px;
+  border: 3px solid #3D5656;
+}
+.row {
+  display: flex;
+}
+.submit-btn {
+  padding: 10px, 20px;
+  border: none;
+  background-color: #3D5656;
+  color: #fff;
+  border-radius: 5px;
+}

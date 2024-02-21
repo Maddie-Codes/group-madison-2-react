@@ -5,7 +5,7 @@ import RedoChoreComment from './RedoChoreComment';
 const username = "AbbyBarber";
 const choreId=2;
 
-const RedoChoreCall = () => {
+const RedoChoreCall = ({choreId}) => {
        
       const [commentValue, setCommentValue] = useState('');
       const [statusCheck, setStatusCheck] = useState('');   
