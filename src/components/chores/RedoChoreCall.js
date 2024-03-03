@@ -16,7 +16,7 @@ const RedoChoreCall = ({choreId}) => {
       // Handler function for submitting the comment
       const handleCommentSubmit = () => {
         setStatusCheck(true)
-        console.log("Comment submitted:");
+       // console.log("Comment submitted:");
       };
     
       return (
