@@ -9,9 +9,9 @@ const ApiRewardsPointValue = ({ choreId, dueDate, points }) => {
   const formattedDueDate = dateObjectVal.toISOString().split('T')[0];
 
 
-  console.log("points" + typeof points);
-  console.log("choreId" + typeof choreId);
-  console.log("Before the rewardAPICALL formattedDueDate" + formattedDueDate);
+ // console.log("points" + typeof points);
+ // console.log("choreId" + typeof choreId);
+ // console.log("Before the rewardAPICALL formattedDueDate" + formattedDueDate);
 
 
   useEffect(() => {
