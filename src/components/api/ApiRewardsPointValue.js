@@ -8,12 +8,6 @@ const ApiRewardsPointValue = ({ choreId, dueDate, points }) => {
   // Then format the date as yyyy-mm-dd
   const formattedDueDate = dateObjectVal.toISOString().split('T')[0];
 
-
- // console.log("points" + typeof points);
- // console.log("choreId" + typeof choreId);
- // console.log("Before the rewardAPICALL formattedDueDate" + formattedDueDate);
-
-
   useEffect(() => {
 
     // Define the rewardApiCall function

@@ -193,69 +193,72 @@ const AssignGroupChore = () => {
         <div className='assign-group'>
                 <h2 className='header-group'>List of all the Chore Group</h2>
                 <form className='form-display'>
-                <div >
-                    {/*Kid Selection Dropdown.*/}
-                    <option key="default" value="" className='form-selectheader'>Select a Kid:</option>
-                    <select
-                        id="kidId"
-                        value={kidDropValue}
-                        onChange={handleKidDropValue}
-                        className="form-select"
-                    ><option value="">Select Kid</option>
-                        {kids.map((kidAlone, index) => (
-                            <option id={index} value={kidAlone.kidId}>{kidAlone.name}</option>
-                        ))}
-                    </select>
-                </div>
-
-                <div>
-                    <div>
-                        <label className='form-selectheader'>Select a Date:</label>
-                        {/*Date Selection*/}
-
-                        <DatePicker
-                            id="dueDate"
-                            className="form-select-date"
-                            selected={dueDate}
-                            onChange={handleDateChange}
-                            customInput={<CalendarIcon />}
-                            dateFormat="yyyy-MM-dd"
-                        />
+                <div className='container'>
+                    <div className='column'>
+                        {/*Kid Selection Dropdown.*/}
+                        <option key="default" value="" className='form-selectheader'>Select a Kid:</option>
+                        <select
+                            id="kidId"
+                            value={kidDropValue}
+                            onChange={handleKidDropValue}
+                            className="form-select"
+                        ><option value="">Select Kid</option>
+                            {kids.map((kidAlone, index) => (
+                                <option id={index} value={kidAlone.kidId}>{kidAlone.name}</option>
+                            ))}
+                        </select>
                     </div>
 
-                    {/*Integrated with the Public Holiday API*/}
-                    {dueDate && <ApiCall dueDate={dueDate} />}
-                    <div></div>
-                    {/*Chore Group Selection Dropdown.*/}
-                    <label className='form-selectheader'>Chore Group:</label>
-                    <select
-                        id="group-dropdown"
-                        value={selectedKidId}
-                        onChange={handleKidSelect}
-                        className="form-select"
-                    >
-                        <option value="">Select</option>
-                        {Object.entries(lengthChoreGroup).map(([kidId, groupName]) => (
-                            <option key={kidId} value={kidId}>{groupName}</option>
-                        ))}
+                    <div className='column'>
+                        <div>
+                            <label className='form-selectheader'>Select a Date:</label>
+                            {/*Date Selection*/}
 
-                    </select>
-                </div>
-                <div>
-                </div>
-                <div>
-                    {/*The corresponding Chore Group.*/}
-                    <label className='form-selectheader'> All Chores</label>
-                    {selectedKidId && kidGroupChores[selectedKidId] && (
-                        <ul>
-                            {kidGroupChores[selectedKidId].map(chore => (
-                                <li key={chore.id}>{chore.description}</li>
+                            <DatePicker
+                                id="dueDate"
+                                className="form-select-date"
+                                selected={dueDate}
+                                onChange={handleDateChange}
+                                customInput={<CalendarIcon />}
+                                dateFormat="yyyy-MM-dd"
+                            />
+                        </div>
+
+                        {/*Integrated with the Public Holiday API*/}
+                        {dueDate && <ApiCall dueDate={dueDate} />}
+                        
+                        {/*Chore Group Selection Dropdown.*/}
+                        <label className='form-selectheader'>Chore Group:</label>
+                        <select
+                            id="group-dropdown"
+                            value={selectedKidId}
+                            onChange={handleKidSelect}
+                            className="form-select"
+                        >
+                            <option value="">Select</option>
+                            {Object.entries(lengthChoreGroup).map(([kidId, groupName]) => (
+                                <option key={kidId} value={kidId}>{groupName}</option>
                             ))}
-                        </ul>
-                    )}
-                    {/*After the selection it will still stay in the same page and im not reseting as if i re-set then the date value will get changed.*/}
+
+                        </select>
+                    </div>
+
+                    <div className='column'>
+                        {/*The corresponding Chore Group.*/}
+                        <label className='form-selectheader'> All Chores</label>
+                        {selectedKidId && kidGroupChores[selectedKidId] && (
+                            <ul>
+                                {kidGroupChores[selectedKidId].map(chore => (
+                                    <li key={chore.id}>{chore.description}</li>
+                                ))}
+                            </ul>
+                        )}
+                        {/*After the selection it will still stay in the same page and im not reseting as if i re-set then the date value will get changed.*/}
+                    </div>
+                    <button className="button-assign" onClick={handleSubmitGroup}>Assign</button>
                 </div>
-                <button className="button-assign" onClick={handleSubmitGroup}>Assign</button>
+
+                
             </form>
 
            {/* {Oksuccess && <p className='sucess'>{Oksuccess}</p>}*/}

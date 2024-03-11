@@ -224,9 +224,9 @@ const AssignedChoresPage = () => {
                           <button onClick={() => handleApproveChore(chore.choreId)}>Approve</button>
                         )} */}
                         {/*Approve Button i have just done an dummy and comment is what th ecode does. */}
-                        <button type="button" onClick={() => handleApproveCommentClick(chore.choreId)}>Approve</button>
+                        <button className='button' type="button" onClick={() => handleApproveCommentClick(chore.choreId)}>Approve</button>
                         {/* Redo Comment box By Monica Start*/}
-                        <button type="button" onClick={() => handleRedoClick(chore.choreId)}>Redo</button>
+                        <button className='button' type="button" onClick={() => handleRedoClick(chore.choreId)}>Redo</button>
                         {/*This statusCheck and visibleTextChoreId will make sure the text area is visbile and also the ChoreID 
                            makes sure the text area is visible to this ChoreID. */}
                         {statusCheck === 1 && visibleTextChoreId === chore.choreId && (
@@ -234,7 +234,7 @@ const AssignedChoresPage = () => {
                             <label>Comment:</label>
                             <textarea value={commentValue} onChange={handleCommentChange} />
                             {/* Button for the comment click */}
-                            <button type="button" onClick={() => handleCommentSubmit(chore.choreId)}>Submit</button>
+                            <button className='button' type="button" onClick={() => handleCommentSubmit(chore.choreId)}>Submit</button>
                           </div>)}
                         {/*Redo Commnt End*/}
                         {/*This statusCheck and visibleTextChoreId will make sure the text area is visbile and also the ChoreID 
@@ -244,7 +244,7 @@ const AssignedChoresPage = () => {
                             <label>Comment:</label>
                             <textarea value={commentValue} onChange={handleCommentApproveChange} />
                             {/* Button for the comment click */}
-                            <button type="button" onClick={() => handleCommentApproveChangeSubmmit(chore.choreId)}>Submit</button>
+                            <button className='button' type="button" onClick={() => handleCommentApproveChangeSubmmit(chore.choreId)}>Submit</button>
                           </div>)}
                       </div>
                     </div>
