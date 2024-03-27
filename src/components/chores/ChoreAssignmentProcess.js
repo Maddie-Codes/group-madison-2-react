@@ -5,7 +5,9 @@ import { FaCalendarAlt } from 'react-icons/fa';
 import '../../styles/ChoreStyles.css';
 import { request,getAuthToken,getUserIdFromAuthToken} from '../../axios_helper'; 
 //import getUserIdFromAuthToken from '../../axios_helper';
-
+////////Exteranl API Call Added by Monica//////////////////////
+import ApiCall from '../api/ApiCall.js';
+///////////////////////////////////////////////////////////////
 
 // Calendar icon component
 const CalendarIcon = React.forwardRef(({ onClick }, ref) => (
@@ -115,6 +117,8 @@ const AssignChore = ({ choreId,id ,handleAssignChore}) => {
           customInput={<CalendarIcon />}
           dateFormat="yyyy-MM-dd"
         />
+        {/* External Api date Added by Monica  */}
+        {dueDate && <ApiCall dueDate={dueDate} />}
       </div>
 
       {/* Dropdown for selecting value type (points or dollars) */}

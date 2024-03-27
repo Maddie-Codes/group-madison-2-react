@@ -5,11 +5,15 @@ import { request, getAuthToken,getUserIdFromAuthToken} from '../../axios_helper'
 //import getUserIdFromAuthToken from '../../axios_helper';
 
 import Navbar from '../Navbar';
+import ApproveComment from './ApproveComment';
 
 const AssignedChoresPage = () => {
   const [assignedChores, setAssignedChores] = useState([]);
   const [activeTab, setActiveTab] = useState('assigned'); // Default tab
-
+  //Added by Monica for Approve Comment Start//
+  const [statusCheck, setStatusCheck] = useState(0);
+  const [visibleTextChoreId, setVisibleTextChoreId] = useState(null);
+ //Added by Monica for Approve Comment end//
   const id = getUserIdFromAuthToken(getAuthToken());
 
   const fetchAssignedChores = async () => {
@@ -46,6 +50,13 @@ const AssignedChoresPage = () => {
   const handleApproveChore = async (choreId) => {
     const id = getUserIdFromAuthToken(getAuthToken());
     const response = await request('post', `api/status/approve/${choreId}/${id}`);
+    //Added by Monica Start Approve Comment//
+    //Once the Approve button is clicked, the text area should come in.
+    //Hence setStatusCheck status helps in that.
+    //setVisibleTextChoreId sets the current choreId.With this the text area is not visible to all the chore ID.
+    setStatusCheck(2);
+    setVisibleTextChoreId(choreId);
+    //Added by Monica End for Approve Comment//
     if (response.status === 200) {
       console.log('Chore approved successfully');
 
@@ -62,6 +73,11 @@ const AssignedChoresPage = () => {
     } else {
       console.error('Failed to approve chore'); 
     }
+        //Added by Monica Start Approve Comment//
+        //Setting all the status to default.
+        //setStatusCheck(0);
+        //setVisibleTextChoreId(null);
+        //Added by Monica End for Approve Comment//
   };
 
   return (
@@ -130,7 +146,10 @@ const AssignedChoresPage = () => {
                             <strong>Status:</strong> {chore.status}
                           </p>
                           {chore.status === 'COMPLETED' && (
-                            <button type="submit" onClick={() => handleApproveChore(chore.choreId)}>Approve</button>
+                            <>
+                              <button type="submit" onClick={() => handleApproveChore(chore.choreId)}>Approve</button>
+                              {statusCheck === 2 && visibleTextChoreId === chore.choreId && <ApproveComment choreId={chore.choreId} />}
+                            </>
                           )}
                         </div>
                       </div>
